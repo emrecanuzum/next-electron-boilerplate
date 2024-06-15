@@ -2,6 +2,13 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
+import Banner from "@/../public/banner.png";
+import Rocket from "@/../public/rocket.svg";
+import DropDown from "@/../public/dropdown_arrow.svg";
+import LatestNews from "@/components/latest_news";
+import PortfolioTracker from "@/components/portfolio_tracker";
+import CoinWatchList from "@/components/coin_watch";
+import FriendsList from "@/components/friends_list";
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -14,27 +21,39 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-around p-24 flex-grow">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p
-          onClick={() => handleCLick()}
-          className="flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200  backdrop-blur-2xl dark:border-neutral-800 dark:from-inherit static rounded-xl border bg-gray-200 p-4 dark:bg-zinc-800/30"
-        >
-          Click Me to increase change the Title!
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none"></div>
-      </div>
+    <div className="w-[calc(100vw-106px)] max-h-[calc(100vh-120px)] overflow-auto px-6 ">
+      <div style={{ contain: "content" }} className="banner area">
+        <Image className="-z-10" src={Banner} alt="banner"></Image>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <button className="shadow-white bg-black shadow-2xl z-50  fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  flex  rounded-full">
+          <div className="shadow-inner hover:bg-opacity-70 from-[#12DD89] bg-from-[#14F195]   shadow-green-950  bg-green-500 bg-gradient-to-b px-10 rounded-full py-4 from-[10%]">
+            <div className="flex gap-8 mx-auto  items-center text-xl">
+              <Image width={25} height={25} src={Rocket} alt="banner"></Image>{" "}
+              Launch 12.1.12
+              <Image
+                width={25}
+                height={25}
+                src={DropDown}
+                alt="banner"
+              ></Image>{" "}
+            </div>
+          </div>
+        </button>
       </div>
-    </main>
+      <div className="flex justify-between">
+        <div className="w-[25%]">
+          <LatestNews />
+        </div>
+        <div className="w-[30%]">
+          <PortfolioTracker />
+        </div>
+        <div className="w-[25%]">
+          <CoinWatchList />
+        </div>
+        <div className="w-[20%]">
+          <FriendsList />
+        </div>
+      </div>
+    </div>
   );
 }

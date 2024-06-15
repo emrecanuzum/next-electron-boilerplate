@@ -1,10 +1,14 @@
 "use client";
 
+import MainSidebar from "@/components/sidebar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 
 import { useSelectedLayoutSegment } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,32 +17,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const [route, setRoute] = useState("/");
   const segment = useSelectedLayoutSegment();
+
+  useEffect(() => {
+    setRoute(pathname);
+  }, [pathname]);
 
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <div className="flex flex-col gap-1">
-          <Link
-            href={"/"}
-            className={`${segment === null && "bg-slate-500 text-white"} `}
-          >
-            Home
-          </Link>
-          <Link
-            href={"/first"}
-            className={`${segment === "first" && "bg-slate-500 text-white"} `}
-          >
-            First
-          </Link>
-          <Link
-            href={"/second"}
-            className={`${segment === "second" && "bg-slate-500 text-white"} `}
-          >
-            Second
-          </Link>
+        <div className="flex bg-dark w-screen">
+          <MainSidebar route={pathname} />
+          <div className="flex ml-[106px] flex-col w-[100vw - 106px]">
+            <Navbar />
+            <div className="">{children}</div>
+          </div>
         </div>
-        {children}
       </body>
     </html>
   );
